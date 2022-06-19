@@ -35,7 +35,7 @@ export async function handler() {
 async function getTodaySMA30(todayDate: string) {
     const res = await getHistoryStockPrices();
     const sma30 = res["Technical Analysis: SMA"][todayDate]["SMA"];
-    console.log(sma30);
+    console.log(todayDate + ': ' + sma30);
     return sma30;
 
     function getHistoryStockPrices(ticker: string = `${process.env.AMZN_TICKER}`): any {

@@ -16,7 +16,7 @@ function createCronJon(stack: Stack, app: App, tableName: string) {
     });
 
     new Cron(stack, `DailyCron-${app.stage}-${app.region}`, {
-        schedule: "cron(01 20 ? * Thu *)", // Run at 16:01pm EST or 20:01 UTC on every Friday
+        schedule: "cron(05 20 ? * Fri *)", // Run at 16:05pm EST or 20:05 UTC on every Friday
         job: "functions/dailyCron.handler",
         enabled: app.stage === 'prod'
     }).attachPermissions(["dynamodb"]);
