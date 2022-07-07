@@ -11,7 +11,7 @@ export async function handler() {
     const todayDate = formatDate(today);
 
     // Use this to run ad-hod update via the SST console
-    // const todayDate = '2022-05-13';
+    //const todayDate = '2022-07-01';
 
     const params = {
         TableName: `${process.env.TABLE_NAME}`,
@@ -33,9 +33,12 @@ export async function handler() {
 }
 
 async function getTodaySMA30(todayDate: string) {
+    console.log('todayDate: ' + todayDate);
+
     const res = await getHistoryStockPrices();
     const sma30 = res["Technical Analysis: SMA"][todayDate]["SMA"];
-    console.log(todayDate + ': ' + sma30);
+
+    console.log('sma30: ' + sma30);
     return sma30;
 
     function getHistoryStockPrices(ticker: string = `${process.env.AMZN_TICKER}`): any {

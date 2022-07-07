@@ -5,15 +5,26 @@ import {Duration} from "aws-cdk-lib";
 export function FrontEndStack({stack, app}: StackContext) {
     const cachePolicies = {
         staticCachePolicy: new cloudfront.CachePolicy(stack, "StaticCache", NextjsSite.staticCachePolicyProps),
-        imageCachePolicy: new cloudfront.CachePolicy(stack, "ImageCache", NextjsSite.imageCachePolicyProps),
+        imageCachePolicy: new cloudfront.CachePolicy(stack, "ImageCache", {
+            // overriding NextjsSite.imageCachePolicyProps to cache result for 30 days
+            queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
+            headerBehavior: cloudfront.CacheHeaderBehavior.allowList("Accept"),
+            cookieBehavior: cloudfront.CacheCookieBehavior.none(),
+            defaultTtl: Duration.days(30),
+            maxTtl: Duration.days(30),
+            minTtl: Duration.days(30),
+            enableAcceptEncodingBrotli: true,
+            enableAcceptEncodingGzip: true,
+            comment: "SST NextjsSite Image Default Cache Policy",
+        }),
         lambdaCachePolicy: new cloudfront.CachePolicy(stack, "LambdaCache", {
-            // overriding NextjsSite.lambdaCachePolicyProps to cache result for 5 minutes
+            // overriding NextjsSite.lambdaCachePolicyProps to cache result for 10 minutes
             queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
             headerBehavior: cloudfront.CacheHeaderBehavior.none(),
             cookieBehavior: cloudfront.CacheCookieBehavior.all(),
-            defaultTtl: Duration.minutes(5),
-            maxTtl: Duration.days(365),
-            minTtl: Duration.minutes(5),
+            defaultTtl: Duration.minutes(10),
+            maxTtl: Duration.days(14),
+            minTtl: Duration.minutes(10),
             enableAcceptEncodingBrotli: true,
             enableAcceptEncodingGzip: true,
             comment: "SST NextjsSite Lambda Default Cache Policy",

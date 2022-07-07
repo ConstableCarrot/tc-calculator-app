@@ -16,7 +16,7 @@ function createCronJon(stack: Stack, app: App, tableName: string) {
     });
 
     new Cron(stack, `DailyCron-${app.stage}-${app.region}`, {
-        schedule: "cron(05 20 ? * Fri *)", // Run at 16:05pm EST or 20:05 UTC on every Friday
+        schedule: "cron(00 23 ? * Fri *)", // Run at 4 pm PDT on every Friday
         job: "functions/dailyCron.handler",
         enabled: app.stage === 'prod'
     }).attachPermissions(["dynamodb"]);
@@ -33,12 +33,12 @@ function createTable(stack: Stack, app: App) {
 
     table.autoScaleReadCapacity({minCapacity: 5, maxCapacity: 10})
         .scaleOnUtilization({
-            targetUtilizationPercent: 50
+            targetUtilizationPercent: 20
         });
 
     table.autoScaleWriteCapacity({minCapacity: 5, maxCapacity: 10})
         .scaleOnUtilization({
-            targetUtilizationPercent: 50
+            targetUtilizationPercent: 20
         });
 
     return table;

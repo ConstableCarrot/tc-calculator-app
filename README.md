@@ -74,6 +74,8 @@ This is the data model that represents the stock history data.
 # Setup
 
 1. Install SST and AWS CLI: https://docs.serverless-stack.com/installation
+   1. Create an Admin IAM-User to deploy CDK via the AWS CLI. (AdministratorAccess)
+   2. Create another IAM-User to access DDB via API. (AmazonDynamoDBFullAccess)
 2. Create ".env.local" file under root to store external API
    secrets: https://docs.serverless-stack.com/environment-variables
 

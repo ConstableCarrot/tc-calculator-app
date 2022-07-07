@@ -24,8 +24,8 @@ export default function Faqs() {
 
             <Title order={3}>How does this website store SMA-30 values?</Title>
             <p>
-                We only store and display SMA-30 values for 8 latest consecutive Fridays. New data is added on every
-                Friday at 16:01 EST.
+                We only store and display SMA-30 values for 8 latest consecutive Fridays. New value is added on every
+                Friday at 4 pm PDT.
             </p>
 
             <Title order={3}>Why use 15% for YOY Stock Growth?</Title>
